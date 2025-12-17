@@ -1,6 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import {useState} from "react"
+import Pagination from './Pagination';
+import MovieCard from './MovieCard';
+
+
+
 function Movies() {
     const [movies, setMovies] = React.useState([
         {
@@ -34,6 +39,19 @@ function Movies() {
             rating: 4.5
         }
     ]);
+    const [pageNo, setPageNo] = useState(1);
+
+    const handlerNextPage = () => {
+        setPageNo(pageNo + 1);
+    }
+    const handlerPrevPage = () => {
+        if(pageNo > 1){
+            setPageNo(pageNo - 1);
+        }else{
+            setPageNo(1);
+
+        }
+    }    
   return (
     <div>
         <div className='text-2xl font-bold text-center m-5'>
@@ -42,13 +60,11 @@ function Movies() {
         <div className='flex justify-evenly flex-wrap gap-8'> 
             { movies.map((movieObj) => {
                 return (
-                    <div className='h-[40vh] w-[200px] bg-center bg-cover rounded-xl hover:scale-110 duration-300 hover:cursor-pointer flex-col' style={{
-                        backgroundImage:`url(${movieObj.url})`}}>
-                        <div className='text-white w-full text-center text-xl p-2 bg-gray-900/70 rouded-lg'>{movieObj.title}</div>
-                    </div>
+                    <MovieCard movieObj={movieObj} />
                 );
             })}
         </div>
+        <Pagination nextPagefn={handlerNextPage} prevPagefn={handlerPrevPage} PageNo={pageNo} />
     </div>
   );
 }
