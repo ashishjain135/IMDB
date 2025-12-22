@@ -12,7 +12,7 @@ function MovieCard({movieObj, addtoWatchlist,watchlist, removeFromWatchlist}) {
   };
   return (
     <>
-        <div className='h-[40vh] w-[200px] bg-center bg-cover rounded-xl hover:scale-110 duration-300 hover:cursor-pointer flex-col' style={{
+        <div className='h-[40vh] w-[200px] bg-center bg-cover rounded-xl hover:scale-110 duration-300 hover:cursor-pointer flex-col justify-between items-end' style={{
                         backgroundImage:`url(${`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`})`}}>
 
   
@@ -23,12 +23,12 @@ function MovieCard({movieObj, addtoWatchlist,watchlist, removeFromWatchlist}) {
               </div>
           ):(
             <div 
-          onClick={() => addtoWatchlist(movieObj)} className='justify-center 	padding-bottom: 10rem'>
+          onClick={() => addtoWatchlist(movieObj)} className='m-4 flex justify-center h-8 w-8 items-center rounded-2xl bg-gray-900/60'>
             😊
           </div>
           )
         }
-        <div className='text-white w-full text-center text-0.5 p-0.5 bg-gray-900/70 rouded-lg'>{movieObj.title}</div>
+        <div className='text-white bottom-20 w-full text-center text-xl p-2 bg-gray-900/70 rounded-lg'>{movieObj.title}</div>
       </div>
     </>
   )
