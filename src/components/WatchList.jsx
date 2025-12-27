@@ -1,9 +1,13 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect, useContext} from "react";
 import genreids from "../constants/Genre";
 import { set } from "mongoose";
-
+import { WatchListContext } from "../context/WatchListContext";
 function WatchList() {
-  const [watchList,setWatchList] = useState([]);
+  // const [watchList,setWatchList] = useState([]);
+  
+
+  const { watchlist, setWatchlist} = useContext(WatchListContext)
+
   const [search , setSearch] = useState("");
   const [genreList,setGenreList] = useState(["All genre","thiller","Action","Comedy","Drama","Romance"]);
   const [currentGenre,setCurrentGenre] = useState("All genre");
@@ -21,18 +25,18 @@ function WatchList() {
     const moviesFromLocalStorage = JSON.parse(localStorage.getItem('movies'));
 
     if(moviesFromLocalStorage){
-      setWatchList(moviesFromLocalStorage);
+      setWatchlist(moviesFromLocalStorage);
     }
   },[]);
 
   useEffect(() =>{
     //there can be 10 movies belonging to thriller, action , comedy genre
-    let temp = watchList.map(movie =>{
+    let temp = watchlist.map(movie =>{
       return genreids[movie.genre_ids[0]]
     })
     temp = new Set(temp);
     setGenreList(["All genre",...temp]);
-  },[watchList]);
+  },[watchlist]);
 
 
 
@@ -45,7 +49,7 @@ function WatchList() {
     const sortAscending = watchList.sort((moviesObjA, moviesObjB) =>{
       return moviesObjA.vote_average - moviesObjB.vote_average;
     });
-    setWatchList([...sortAscending]);
+    setWatchlist([...sortAscending]);
   }
 
   const handlerDescendingRating =() =>{
@@ -53,7 +57,7 @@ function WatchList() {
     const sortDescending = watchList.sort((moviesObjA, moviesObjB) =>{
       return moviesObjB.vote_average - moviesObjA.vote_average;
     });
-    setWatchList([...sortDescending]);
+    setWatchlist([...sortDescending]);
   }
   const Genre = () =>(
     <div className="flex justify-center m-4">
@@ -70,7 +74,7 @@ function WatchList() {
   );
 
   const filterMovies = () => {
-    return watchList
+    return watchlist
     .filter(movie =>{
         if(currentGenre === "All genre"){
           return true;

@@ -1,40 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {useState , useEffect} from "react"
+import {useState , useEffect, useContext} from "react"
 import Pagination from './Pagination'
 import MovieCard from './MovieCard'
 import axios from 'axios'
+import { WatchListContext } from '../context/WatchListContext'
+
 
 function Movies() {
+
+
   const [movies, setMovies] = useState([]);
   const [pageNo, setPageNo] = useState(1);
-  const [watchlist, setWatchlist] = useState
-  ([]);
-
-  useEffect(() => {
-    const moviesFromLocalStorage = JSON.parse(localStorage.getItem("movies"));
-    if(moviesFromLocalStorage){
-        setWatchlist(moviesFromLocalStorage);
-    }
-  },[])
-
-  const addWatchlist = (movieObj) => {
-    const updateWatchlist = [...watchlist, movieObj];
-    setWatchlist(updateWatchlist);
-    localStorage.setItem("movies",JSON.stringify(updateWatchlist));
-  }
-
-
-  const removeFromWatchlist = (movieObj) => {
-    let filteredMovies = watchlist.filter((movie) => {
-        return movie.id !== movieObj.id //return all those movies whose id is not equal to movieObj.id
-    });   
-    setWatchlist(filteredMovies);
-    localStorage.setItem("movies",JSON.stringify(filteredMovies));
-  };
-  console.log("watchlist", watchlist);
-  
-  
+  const {watchlist,addWatchlist,removeFromWatchlist} = useContext(WatchListContext);
   
   useEffect(() => {
     console.log("useEffect fetched data");
