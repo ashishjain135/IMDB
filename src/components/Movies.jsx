@@ -5,15 +5,19 @@ import Pagination from './Pagination'
 import MovieCard from './MovieCard'
 import axios from 'axios'
 import { WatchListContext } from '../context/WatchListContext'
-
+import paginationSlice from '../redux/paginationSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 function Movies() {
 
 
   const [movies, setMovies] = useState([]);
-  const [pageNo, setPageNo] = useState(1);
+  // const [pageNo, setPageNo] = useState(1);
   const {watchlist,addWatchlist,removeFromWatchlist} = useContext(WatchListContext);
-  
+  const {pageNo} = useSelector((state) => state.pagination);
+  const dispatch = useDispatch();
+
+
   useEffect(() => {
     console.log("useEffect fetched data");
 
@@ -29,13 +33,16 @@ function Movies() {
   }, [pageNo]);
 
   const handlerNextPage = () => {
-    setPageNo(pageNo + 1);
+    // setPageNo(pageNo + 1);
+    // console.log(paginationSlice);
+    dispatch(paginationSlice.actions.handleNext());
   };
 
   const handlerPrevPage = () => {
-    if (pageNo > 1) {
-      setPageNo(pageNo - 1);
-    }
+    // if (pageNo > 1) {
+    //   setPageNo(pageNo - 1);
+    // }
+    dispatch(paginationSlice.actions.handlePrev());
   };
 
   return (
