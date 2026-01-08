@@ -1,6 +1,5 @@
 import React,{useState,useEffect, useContext} from "react";
 import genreids from "../constants/Genre";
-import { set } from "mongoose";
 import { WatchListContext } from "../context/WatchListContext";
 
 
