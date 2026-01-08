@@ -4,7 +4,7 @@ import Logo from '../assets/logo.png'
 const Navbar = () => {
   return (
     <>
-      <div className='flex space-x-8 items-center pl-3 py-4 bg-gray-800 text-white'>
+      <div className='flex space-x-8 items-center pl-3 py-4 bg-white-800 text-white'>
       <Link to="/">
         <img className='w-[50px] border-radius: 5rem;' src={Logo} alt="Logo" />
       </Link>
