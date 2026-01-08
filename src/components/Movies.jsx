@@ -3,34 +3,43 @@ import { Link } from 'react-router-dom'
 import {useState , useEffect, useContext} from "react"
 import Pagination from './Pagination'
 import MovieCard from './MovieCard'
-import axios from 'axios'
+//import axios from 'axios'
 import { WatchListContext } from '../context/WatchListContext'
 import paginationSlice from '../redux/paginationSlice'
+import fetchMiddleware from "../redux/User/movieMiddleware"
 import { useDispatch, useSelector } from 'react-redux'
 
 function Movies() {
 
 
-  const [movies, setMovies] = useState([]);
-  // const [pageNo, setPageNo] = useState(1);
-  const {watchlist,addWatchlist,removeFromWatchlist} = useContext(WatchListContext);
+  // const [movies, setMovies] = useState([]);
+  // // const [pageNo, setPageNo] = useState(1);
+  // const {watchlist,addWatchlist,removeFromWatchlist} = useContext(WatchListContext);
+  const {error , loading, movies} = useSelector((state) =>{
+    return state.movie;
+  })
   const {pageNo} = useSelector((state) => state.pagination);
   const dispatch = useDispatch();
 
+  const {watchlist, addWatchlist, removeFromWatchlist} = useContext(WatchListContext);
+
+  // useEffect(() => {
+  //   console.log("useEffect fetched data");
+
+  //   axios
+  //     .get(
+  //       `https://api.themoviedb.org/3/trending/movie/day?api_key=e8de446ab4eaaf447ecfe5e4ec182fac&language=en-US&page=${pageNo}`
+  //     )
+  //     .then(response => {
+  //       console.log("movies data", response.data.results);
+  //       setMovies(response.data.results);
+  //     })
+  //     .catch(error => console.error("Error fetching data:", error));
+  // }, [pageNo]);
 
   useEffect(() => {
-    console.log("useEffect fetched data");
-
-    axios
-      .get(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=e8de446ab4eaaf447ecfe5e4ec182fac&language=en-US&page=${pageNo}`
-      )
-      .then(response => {
-        console.log("movies data", response.data.results);
-        setMovies(response.data.results);
-      })
-      .catch(error => console.error("Error fetching data:", error));
-  }, [pageNo]);
+    dispatch(fetchMiddleware(pageNo));
+  },[dispatch, pageNo]);
 
   const handlerNextPage = () => {
     // setPageNo(pageNo + 1);
@@ -44,6 +53,14 @@ function Movies() {
     // }
     dispatch(paginationSlice.actions.handlePrev());
   };
+
+
+  // if(loading){
+  //   return <h1>Loading..</h1>
+  // }
+  // if(error){
+  //   return <h1>SomeThing went wrong</h1>
+  // }
 
   return (
     <div>

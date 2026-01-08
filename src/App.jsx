@@ -18,8 +18,8 @@ function App() {
     <>
       <Provider store={store}>
          {/* <User/> */}
-        <UserRedux/>
-        {/* <Navbar />
+        {/* <UserRedux/> */}
+        <Navbar />
         <WatchlistContextWrapper>
         <Routes>
     
@@ -27,7 +27,7 @@ function App() {
           <Route path='/watchlist' element={<WatchList />} />
         
         </Routes>
-        </WatchlistContextWrapper> */}
+        </WatchlistContextWrapper>
       </Provider>
     </>
   )

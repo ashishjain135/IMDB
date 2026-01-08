@@ -5,13 +5,15 @@ import counterReducer from "./counterSlice.js"; //importing the slice reducer
 import todoReducer from "./todoSlices";
 import paginationSlice from "./paginationSlice";
 import userSlice from "./User/userSlice.js";
+import moviesSlice from "./movieSlice.js";
 
 const store = configureStore({
     reducer: {
         counter: counterReducer,   // adding the slice reducer to the store
         todo: todoReducer,
         pagination: paginationSlice.reducer,
-        user: userSlice.reducer
+        user: userSlice.reducer,
+        movie:moviesSlice.reducer,
     },
 });
 

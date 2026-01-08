@@ -2,6 +2,9 @@ import React,{useState,useEffect, useContext} from "react";
 import genreids from "../constants/Genre";
 import { set } from "mongoose";
 import { WatchListContext } from "../context/WatchListContext";
+
+
+
 function WatchList() {
   // const [watchList,setWatchList] = useState([]);
   
@@ -46,7 +49,7 @@ function WatchList() {
 
   const handleAscendingRating =() =>{
     console.log("ascending rating");
-    const sortAscending = watchList.sort((moviesObjA, moviesObjB) =>{
+    const sortAscending = watchlist.sort((moviesObjA, moviesObjB) =>{
       return moviesObjA.vote_average - moviesObjB.vote_average;
     });
     setWatchlist([...sortAscending]);
@@ -54,7 +57,7 @@ function WatchList() {
 
   const handlerDescendingRating =() =>{
     console.log("descending rating");
-    const sortDescending = watchList.sort((moviesObjA, moviesObjB) =>{
+    const sortDescending = watchlist.sort((moviesObjA, moviesObjB) =>{
       return moviesObjB.vote_average - moviesObjA.vote_average;
     });
     setWatchlist([...sortDescending]);

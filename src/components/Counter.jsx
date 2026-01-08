@@ -7,9 +7,9 @@ const Counter = () => {
 
     return (
         <div>
-            <h2>Counter: {count}</h2>
-            <button className='p-3 m-3 border-gray-400' onClick={() => dispatch(increment())}>Increment</button> //immer.js allows us to write mutating logic in reducers. It doesn't actually mutate the state because it uses the immer library to detect changes to a "draft state" and produce a brand new immutable state based off those changes
-            <button onClick={() => dispatch(decrement())}>Decrement</button>
+            {/* <h2>{count}</h2> */}
+            <button className='absolute bottom-0 border-gray-100' onClick={() => dispatch(increment())}></button>
+            <button onClick={() => dispatch(decrement())}></button>
         </div>
     );
 }
